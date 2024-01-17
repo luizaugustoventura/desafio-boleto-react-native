@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, Alert } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
@@ -51,9 +51,9 @@ const Home = () => {
       maxValidDate.setHours(23, 59, 59, 999);
 
       if (new Date() < maxValidDate) {
-        console.log("Pagamento aceito");
+        Alert.alert("Pagamento aceito", "Seu pagamento foi aceito com sucesso");
       } else {
-        console.log("Pagamento negado");
+        Alert.alert("Pagamento negado", "O boleto é inválido ou expirou");
       }
     }
   };
