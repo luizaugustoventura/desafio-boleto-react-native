@@ -5,11 +5,25 @@ const maxWidth = 320;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    zIndex: 0,
+  },
+
+  formContainer: {
     marginTop: statusBarHeight,
     padding: 8,
     flex: 1,
     backgroundColor: "#ffffffae",
     alignItems: "center",
+  },
+
+  cameraViewContainer: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    zIndex: 1,
+    backgroundColor: "black",
+    flexDirection: 'row'
   },
 
   codeContainer: {
@@ -69,3 +83,4 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
+
