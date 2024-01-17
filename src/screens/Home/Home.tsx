@@ -63,9 +63,17 @@ const Home = () => {
   const handlePayment = () => {
     if (validUntil) {
       const maxValidDate = validUntil;
-      maxValidDate.setHours(23, 59, 59, 999);
+      maxValidDate.setUTCHours(23, 59, 59, 999);
 
-      if (new Date() < maxValidDate) {
+      const now = new Date();
+      now.setUTCHours(
+        now.getHours(),
+        now.getMinutes(),
+        now.getSeconds(),
+        now.getMilliseconds()
+      );
+
+      if (now < maxValidDate) {
         Alert.alert("Pagamento aceito", "Seu pagamento foi aceito com sucesso");
       } else {
         Alert.alert("Pagamento negado", "O boleto é inválido ou expirou");
