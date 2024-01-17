@@ -1,6 +1,7 @@
 import { StatusBar, StyleSheet } from "react-native";
 
 const statusBarHeight = StatusBar.currentHeight || 0;
+const maxWidth = 320;
 
 const styles = StyleSheet.create({
   container: {
@@ -9,12 +10,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffffae",
     alignItems: "center",
-    // justifyContent: "center",
   },
 
-  valueInput: {
-    marginTop: 16,
-    width: 300,
+  codeContainer: {
+    width: "100%",
+    maxWidth: maxWidth,
+    marginTop: 24,
+    marginBottom: 24,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  codeInput: {
+    width: 260,
+  },
+
+  cameraButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#333",
+    borderRadius: 25,
+  },
+
+  button: {
+    width: "100%",
+    maxWidth: maxWidth,
   },
 
   buttonText: {
@@ -25,6 +45,8 @@ const styles = StyleSheet.create({
   },
 
   paymentDetailsContainer: {
+    width: "100%",
+    maxWidth: maxWidth,
     flex: 1,
     marginTop: 24,
     marginBottom: 16,
@@ -35,9 +57,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: 300,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#EEE",
     borderRadius: 10,
     marginBottom: 10,
   },

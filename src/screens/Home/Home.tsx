@@ -27,15 +27,8 @@ const Home = () => {
       return;
     }
 
-    // const valueStr = code.slice(37, 47);
-    // const value = Number(valueStr) / 100;
     const value = extractValueFromCode(code);
 
-    // const dateDelta = code.slice(33, 37);
-    // const baseDate = new Date("1997-10-07");
-    // const validUntil = new Date(
-    //   baseDate.getTime() + parseInt(dateDelta) * 24 * 60 * 60 * 1000
-    // );
     const validUntil = extractExpirationDateFromCode(code);
 
     setIsCodeProcessed(true);
@@ -58,7 +51,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.codeContainer}>
         <Input
           placeholder="Código de barras..."
           value={code}
@@ -66,11 +59,15 @@ const Home = () => {
             isCodeProcessed && setIsCodeProcessed(false);
             setCode(value);
           }}
-          style={styles.valueInput}
+          style={styles.codeInput}
         />
+
+        <Button onPress={() => {}} style={styles.cameraButton}>
+          <Icon name="camera" size={20} color={"white"} />
+        </Button>
       </View>
 
-      <Button onPress={handleProcessBarcode}>
+      <Button onPress={handleProcessBarcode} style={styles.button}>
         <Text style={styles.buttonText}>AVANÇAR</Text>
 
         <Icon name="chevron-right" size={20} color={"white"} />
@@ -100,6 +97,7 @@ const Home = () => {
         <Button
           onPress={handlePayment}
           enabled={isPaymentCodeValid(code) && isCodeProcessed}
+          style={styles.button}
         >
           <Text style={styles.buttonText}>{"PAGAR "}</Text>
 
