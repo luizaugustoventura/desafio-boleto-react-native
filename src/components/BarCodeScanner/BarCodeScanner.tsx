@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import {
   BarCodeScannedCallback,
+  BarCodeScannerResult,
   Constants,
   BarCodeScanner as ExpoBarCodeScanner,
 } from "expo-barcode-scanner";
@@ -40,5 +41,7 @@ export const hasCameraPermission = async () => {
 
   return status === "granted";
 };
+
+export type BarCodeScannerCallbackResult = BarCodeScannerResult;
 
 export default BarCodeScanner;

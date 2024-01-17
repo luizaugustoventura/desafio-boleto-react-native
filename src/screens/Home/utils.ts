@@ -20,7 +20,7 @@ export const formatDate = (date?: Date) => {
 };
 
 export const isPaymentCodeValid = (code: string) => {
-  if (code.length === 44 || code.length === 47) {
+  if (code.length === 44 || code.length === 46 || code.length === 47) {
     return true;
   }
 
@@ -28,12 +28,13 @@ export const isPaymentCodeValid = (code: string) => {
 };
 
 export const extractValueFromCode = (code: string) => {
-  if (code.length !== 44 && code.length !== 47) {
+  if (!isPaymentCodeValid(code)) {
     return 0;
     // throw
   }
 
-  if (code.length === 44) {
+  if (code.length === 44 || code.length == 46) {
+    code = code.length === 46 ? code.slice(1, 45) : code;
     const rawValue = Number(code.slice(9, 19));
     const value = rawValue / 100;
 
@@ -47,12 +48,13 @@ export const extractValueFromCode = (code: string) => {
 };
 
 export const extractExpirationDateFromCode = (code: string) => {
-  if (code.length !== 44 && code.length !== 47) {
+  if (!isPaymentCodeValid(code)) {
     return;
     // throw
   }
 
-  if (code.length === 44) {
+  if (code.length === 44 || code.length == 46) {
+    code = code.length === 46 ? code.slice(1, 45) : code;
     const expirationFactor = code.slice(5, 9);
     const baseDate = new Date("1997-10-07");
     const validUntil = new Date(

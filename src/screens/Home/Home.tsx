@@ -3,6 +3,7 @@ import { Text, View, Alert } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 import BarCodeScanner, {
   hasCameraPermission,
+  BarCodeScannerCallbackResult,
 } from "../../components/BarCodeScanner/BarCodeScanner";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
@@ -36,8 +37,9 @@ const Home = () => {
     }
   };
 
-  const onBarCodeScanned = ({ type, data }: { type: string; data: string }) => {
-    console.log(`Scanned the following ${type} code: ${data}`);
+  const onBarCodeScanned = (scannedCode: BarCodeScannerCallbackResult) => {
+    console.log(scannedCode.data, scannedCode.data.length);
+    setCode(scannedCode.data);
     setHasScanned(true);
     setIsScanning(false);
   };
