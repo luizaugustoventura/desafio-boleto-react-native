@@ -4,7 +4,13 @@ import { Feather as Icon } from "@expo/vector-icons";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./styles";
-import { formatDate, formatTotalValue, isPaymentCodeValid } from "./utils";
+import {
+  extractExpirationDateFromCode,
+  extractValueFromCode,
+  formatDate,
+  formatTotalValue,
+  isPaymentCodeValid,
+} from "./utils";
 
 const Home = () => {
   const [code, setCode] = useState("");
@@ -21,14 +27,16 @@ const Home = () => {
       return;
     }
 
-    const valueStr = code.slice(37, 47);
-    const value = Number(valueStr) / 100;
+    // const valueStr = code.slice(37, 47);
+    // const value = Number(valueStr) / 100;
+    const value = extractValueFromCode(code);
 
-    const dateDelta = code.slice(33, 37);
-    const baseDate = new Date("1997-10-07");
-    const validUntil = new Date(
-      baseDate.getTime() + parseInt(dateDelta) * 24 * 60 * 60 * 1000
-    );
+    // const dateDelta = code.slice(33, 37);
+    // const baseDate = new Date("1997-10-07");
+    // const validUntil = new Date(
+    //   baseDate.getTime() + parseInt(dateDelta) * 24 * 60 * 60 * 1000
+    // );
+    const validUntil = extractExpirationDateFromCode(code);
 
     setIsCodeProcessed(true);
     setTotalValue(value);
