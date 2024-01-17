@@ -1,3 +1,5 @@
+import { InvalidPaymentCodeError } from "../../errors/InvalidPaymentCode.error";
+
 export const formatTotalValue = (value: number) => {
   const formattedValue = value.toLocaleString("pt-BR", {
     style: "currency",
@@ -29,8 +31,9 @@ export const isPaymentCodeValid = (code: string) => {
 
 export const extractValueFromCode = (code: string) => {
   if (!isPaymentCodeValid(code)) {
-    return 0;
-    // throw
+    throw new InvalidPaymentCodeError(
+      "Payment code must contain 44, 46 or 47 characters"
+    );
   }
 
   let rawValue: number, value: number;
@@ -59,8 +62,9 @@ export const extractValueFromCode = (code: string) => {
 
 export const extractExpirationDateFromCode = (code: string) => {
   if (!isPaymentCodeValid(code)) {
-    return;
-    // throw
+    throw new InvalidPaymentCodeError(
+      "Payment code must contain 44, 46 or 47 characters"
+    );
   }
 
   const baseDate = new Date("1997-10-07");

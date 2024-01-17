@@ -15,6 +15,9 @@ import {
   isPaymentCodeValid,
 } from "./utils";
 import styles from "./styles";
+import { InvalidPaymentCodeError } from "../../errors/InvalidPaymentCode.error";
+import { CameraPermissionError } from "../../errors/CameraPermissionError.error";
+import genericErrorAlert from "../../utils/genericErrorAlert";
 
 const Home = () => {
   const [isScanning, setIsScanning] = useState(false);
@@ -25,15 +28,24 @@ const Home = () => {
   const [validUntil, setValidUntil] = useState<Date>();
 
   const handleScanBarCode = async () => {
-    if (await hasCameraPermission()) {
-      setHasScanned(false);
-      setIsScanning(true);
-    } else {
-      // throw
-      Alert.alert(
-        "Erro ao ler código de barras",
-        "Precisamos da sua permissão para acessar a câmera"
-      );
+    try {
+      if (await hasCameraPermission()) {
+        setHasScanned(false);
+        setIsScanning(true);
+      } else {
+        throw new CameraPermissionError("Unauthorized attempt to use camera");
+      }
+    } catch (err) {
+      console.error(err);
+      if (err instanceof CameraPermissionError) {
+        Alert.alert(
+          "Erro ao ler código de barras",
+          "Precisamos da sua permissão para acessar a câmera e ler o código de barras"
+        );
+        return;
+      }
+
+      genericErrorAlert();
     }
   };
 
@@ -44,20 +56,25 @@ const Home = () => {
   };
 
   const handleProcessBarCode = () => {
-    if (!isPaymentCodeValid(code)) {
-      Alert.alert(
-        "Código de barras inválido",
-        "Por favor, verifique o código de barras digitado"
-      );
-      return;
+    try {
+      const value = extractValueFromCode(code);
+      const validUntil = extractExpirationDateFromCode(code);
+
+      setIsCodeProcessed(true);
+      setTotalValue(value);
+      setValidUntil(validUntil);
+    } catch (err) {
+      console.error(err);
+      if (err instanceof InvalidPaymentCodeError) {
+        Alert.alert(
+          "Código de barras inválido",
+          "O código de barras/linha digitável deve conter 44, 46 ou 47 dígitos"
+        );
+        return;
+      }
+
+      genericErrorAlert();
     }
-
-    const value = extractValueFromCode(code);
-    const validUntil = extractExpirationDateFromCode(code);
-
-    setIsCodeProcessed(true);
-    setTotalValue(value);
-    setValidUntil(validUntil);
   };
 
   const handlePayment = () => {
