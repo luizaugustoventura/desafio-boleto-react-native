@@ -1,6 +1,6 @@
 # Desafio React Native: Leitura de boletos
 
-Projeto desenvolvido a partir do desafio Pumpkin React Native. Para o desenvolvimento, foi utilizado o Expo SDK 49.
+Projeto desenvolvido a partir do [desafio Pumpkin React Native](https://canyon-buffer-51b.notion.site/Teste-T-cnico-Desenvolvedor-React-Native-0829bbe6d01642228248a20761bad87e). Para o desenvolvimento, foi utilizado o Expo SDK 49.
 
 ## Utilização
 
