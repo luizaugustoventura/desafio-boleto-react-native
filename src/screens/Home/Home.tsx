@@ -1,15 +1,9 @@
 import { useState } from "react";
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, View } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
-
-const statusBarHeight = StatusBar.currentHeight || 0;
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
+import styles from "./styles";
 
 const Home = () => {
   const [barCode, setBarCode] = useState("");
@@ -67,114 +61,49 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <View>
-        <TextInput
+        <Input
           placeholder="Código de barras..."
+          value={barCode}
           onChangeText={setBarCode}
-          style={[styles.input, styles.valueInput]}
+          style={styles.valueInput}
         />
       </View>
 
-      <TouchableOpacity onPress={handleProcessBarcode} style={styles.button}>
+      <Button onPress={handleProcessBarcode}>
         <Text style={styles.buttonText}>AVANÇAR</Text>
 
         <Icon name="chevron-right" size={20} color={"white"} />
-      </TouchableOpacity>
+      </Button>
 
       <View style={styles.paymentDetailsContainer}>
         <View>
           <View style={styles.detailContainer}>
             <Text>Valor a pagar:</Text>
-            <TextInput
+            <Input
               value={formatTotalValue(totalValue) || ""}
               editable={false}
-              style={[styles.input, styles.detailInput]}
+              style={styles.detailInput}
             />
           </View>
 
           <View style={styles.detailContainer}>
             <Text>Data de vencimento:</Text>
-            <TextInput
+            <Input
               value={formatDate(validUntil) || ""}
               editable={false}
-              style={[styles.input, styles.detailInput]}
+              style={styles.detailInput}
             />
           </View>
         </View>
 
-        <TouchableOpacity onPress={handlePayment} style={styles.button}>
+        <Button onPress={handlePayment}>
           <Text style={styles.buttonText}>{"PAGAR "}</Text>
 
           <Icon name="dollar-sign" size={16} color={"white"} />
-        </TouchableOpacity>
+        </Button>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: statusBarHeight,
-    padding: 8,
-    flex: 1,
-    backgroundColor: "#ffffffae",
-    alignItems: "center",
-    // justifyContent: "center",
-  },
-
-  input: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 10,
-    padding: 10,
-  },
-
-  valueInput: {
-    marginTop: 16,
-    width: 300,
-  },
-
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 24,
-    height: 50,
-    width: 300,
-    backgroundColor: "#333",
-    borderRadius: 10,
-    padding: 10,
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "500",
-    textAlign: "center",
-  },
-
-  paymentDetailsContainer: {
-    flex: 1,
-    marginTop: 24,
-    marginBottom: 16,
-    justifyContent: "space-between",
-  },
-
-  detailContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: 300,
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-
-  detailInput: {
-    color: "black",
-  },
-});
-
 export default Home;
-
