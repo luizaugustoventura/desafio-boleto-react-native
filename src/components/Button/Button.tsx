@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Keyboard, TouchableOpacity } from "react-native";
 import styles from "./styles";
 
 type ButtonProps = {
@@ -12,7 +12,10 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => {
+        Keyboard.dismiss();
+        onPress();
+      }}
       activeOpacity={0.8}
       style={styles.button}
     >
@@ -22,4 +25,3 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
 };
 
 export default Button;
-
