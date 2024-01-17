@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Text, View, Alert, StyleSheet } from "react-native";
-import { BarCodeScanner, Constants } from "expo-barcode-scanner";
+import { Text, View, Alert } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
+import BarCodeScanner, {
+  hasCameraPermission,
+} from "../../components/BarCodeScanner/BarCodeScanner";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
-import styles from "./styles";
 import {
   extractExpirationDateFromCode,
   extractValueFromCode,
@@ -12,6 +13,7 @@ import {
   formatTotalValue,
   isPaymentCodeValid,
 } from "./utils";
+import styles from "./styles";
 
 const Home = () => {
   const [isScanning, setIsScanning] = useState(false);
@@ -21,10 +23,8 @@ const Home = () => {
   const [totalValue, setTotalValue] = useState(0);
   const [validUntil, setValidUntil] = useState<Date>();
 
-  const handleScanBarcode = async () => {
-    const { status } = await BarCodeScanner.requestPermissionsAsync();
-
-    if (status === "granted") {
+  const handleScanBarCode = async () => {
+    if (await hasCameraPermission()) {
       setHasScanned(false);
       setIsScanning(true);
     } else {
@@ -36,7 +36,13 @@ const Home = () => {
     }
   };
 
-  const handleProcessBarcode = () => {
+  const onBarCodeScanned = ({ type, data }: { type: string; data: string }) => {
+    console.log(`Scanned the following ${type} code: ${data}`);
+    setHasScanned(true);
+    setIsScanning(false);
+  };
+
+  const handleProcessBarCode = () => {
     if (!isPaymentCodeValid(code)) {
       Alert.alert(
         "Código de barras inválido",
@@ -46,7 +52,6 @@ const Home = () => {
     }
 
     const value = extractValueFromCode(code);
-
     const validUntil = extractExpirationDateFromCode(code);
 
     setIsCodeProcessed(true);
@@ -67,43 +72,12 @@ const Home = () => {
     }
   };
 
-  const onBarcodeScanned = ({ type, data }: { type: string; data: string }) => {
-    console.log(`Scanned the following ${type} code: ${data}`);
-    setHasScanned(true);
-    setIsScanning(false);
-  };
-
   return (
     <View style={styles.container}>
-      {isScanning && (
-        <View style={styles.cameraViewContainer}>
-          <View
-            style={{
-              backgroundColor: "black",
-              position: "absolute",
-              zIndex: 2,
-              left: 0,
-              width: "25%",
-              height: "100%",
-            }}
-          />
-          <BarCodeScanner
-            barCodeTypes={[Constants.BarCodeType.itf14]}
-            onBarCodeScanned={hasScanned ? undefined : onBarcodeScanned}
-            style={StyleSheet.absoluteFillObject}
-          />
-          <View
-            style={{
-              backgroundColor: "black",
-              position: "absolute",
-              zIndex: 2,
-              right: 0,
-              width: "25%",
-              height: "100%",
-            }}
-          />
-        </View>
-      )}
+      <BarCodeScanner
+        isVisible={isScanning}
+        onBarCodeScanned={hasScanned ? undefined : onBarCodeScanned}
+      />
 
       <View style={styles.formContainer}>
         <View style={styles.codeContainer}>
@@ -117,12 +91,12 @@ const Home = () => {
             style={styles.codeInput}
           />
 
-          <Button onPress={handleScanBarcode} style={styles.cameraButton}>
+          <Button onPress={handleScanBarCode} style={styles.cameraButton}>
             <Icon name="camera" size={20} color={"white"} />
           </Button>
         </View>
 
-        <Button onPress={handleProcessBarcode} style={styles.button}>
+        <Button onPress={handleProcessBarCode} style={styles.button}>
           <Text style={styles.buttonText}>AVANÇAR</Text>
 
           <Icon name="chevron-right" size={20} color={"white"} />
@@ -165,4 +139,3 @@ const Home = () => {
 };
 
 export default Home;
-

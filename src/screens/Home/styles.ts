@@ -17,15 +17,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  cameraViewContainer: {
-    position: "absolute",
-    height: "100%",
-    width: "100%",
-    zIndex: 1,
-    backgroundColor: "black",
-    flexDirection: 'row'
-  },
-
   codeContainer: {
     width: "100%",
     maxWidth: maxWidth,
@@ -83,4 +74,3 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
-
