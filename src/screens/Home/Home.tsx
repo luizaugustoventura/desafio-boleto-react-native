@@ -38,7 +38,6 @@ const Home = () => {
   };
 
   const onBarCodeScanned = (scannedCode: BarCodeScannerCallbackResult) => {
-    console.log(scannedCode.data, scannedCode.data.length);
     setCode(scannedCode.data);
     setHasScanned(true);
     setIsScanning(false);

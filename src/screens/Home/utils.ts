@@ -33,17 +33,27 @@ export const extractValueFromCode = (code: string) => {
     // throw
   }
 
-  if (code.length === 44 || code.length == 46) {
-    code = code.length === 46 ? code.slice(1, 45) : code;
-    const rawValue = Number(code.slice(9, 19));
-    const value = rawValue / 100;
+  let rawValue: number, value: number;
 
-    return value;
-  } else {
-    const rawValue = Number(code.slice(37, 47));
-    const value = rawValue / 100;
+  switch (code.length) {
+    case 44:
+      rawValue = Number(code.slice(9, 19));
+      value = rawValue / 100;
+      return value;
 
-    return value;
+    case 46:
+      code = code.slice(1, 45);
+      rawValue = Number(code.slice(9, 19));
+      value = rawValue / 100;
+      return value;
+
+    case 47:
+      rawValue = Number(code.slice(37, 47));
+      value = rawValue / 100;
+      return value;
+
+    default:
+      return 0;
   }
 };
 
@@ -53,22 +63,34 @@ export const extractExpirationDateFromCode = (code: string) => {
     // throw
   }
 
-  if (code.length === 44 || code.length == 46) {
-    code = code.length === 46 ? code.slice(1, 45) : code;
-    const expirationFactor = code.slice(5, 9);
-    const baseDate = new Date("1997-10-07");
-    const validUntil = new Date(
-      baseDate.getTime() + parseInt(expirationFactor) * 24 * 60 * 60 * 1000
-    );
+  const baseDate = new Date("1997-10-07");
+  let expirationFactor: string;
+  let validUntil: Date;
 
-    return validUntil;
-  } else {
-    const expirationFactor = code.slice(33, 37);
-    const baseDate = new Date("1997-10-07");
-    const validUntil = new Date(
-      baseDate.getTime() + parseInt(expirationFactor) * 24 * 60 * 60 * 1000
-    );
+  switch (code.length) {
+    case 44:
+      expirationFactor = code.slice(5, 9);
+      validUntil = new Date(
+        baseDate.getTime() + parseInt(expirationFactor) * 24 * 60 * 60 * 1000
+      );
+      return validUntil;
 
-    return validUntil;
+    case 46:
+      code = code.slice(1, 45);
+      expirationFactor = code.slice(5, 9);
+      validUntil = new Date(
+        baseDate.getTime() + parseInt(expirationFactor) * 24 * 60 * 60 * 1000
+      );
+      return validUntil;
+
+    case 47:
+      expirationFactor = code.slice(33, 37);
+      validUntil = new Date(
+        baseDate.getTime() + parseInt(expirationFactor) * 24 * 60 * 60 * 1000
+      );
+      return validUntil;
+
+    default:
+      return;
   }
 };
