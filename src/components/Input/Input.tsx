@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({
       value={value}
       onChangeText={onChangeText}
       editable={editable}
-      className="h-12 p-3 border border-black rounded-xl"
+      className="h-14 px-3 text-base border border-black rounded-xl"
       style={style}
     />
   );

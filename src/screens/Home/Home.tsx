@@ -117,10 +117,15 @@ const Home = () => {
               isCodeProcessed && setIsCodeProcessed(false);
               setCode(value);
             }}
-            className="w-72"
+            className="flex-1"
           />
 
-          <Button onPress={handleScanBarCode} className="h-12 w-12 rounded-3xl">
+          <View className="w-2" />
+
+          <Button
+            onPress={handleScanBarCode}
+            className="h-14 w-14 rounded-full"
+          >
             <Icon name="camera" size={20} color={"white"} />
           </Button>
         </View>
@@ -135,8 +140,8 @@ const Home = () => {
 
         <View className="flex-1 w-full mt-6 mb-4 justify-between">
           <View>
-            <View className="mb-3 p-3 flex-row items-center justify-between bg-gray-200 rounded-xl">
-              <Text>Valor a pagar:</Text>
+            <View className="mb-3 px-3 py-2 flex-row items-center justify-between bg-gray-200 rounded-xl">
+              <Text className="text-sm">Valor a pagar:</Text>
               <Input
                 value={formatTotalValue(totalValue) || ""}
                 editable={false}
@@ -144,8 +149,8 @@ const Home = () => {
               />
             </View>
 
-            <View className="mb-3 p-3 flex-row items-center justify-between bg-gray-200 rounded-xl">
-              <Text>Data de vencimento:</Text>
+            <View className="mb-3 px-3 py-2 flex-row items-center justify-between bg-gray-200 rounded-xl">
+              <Text className="text-sm">Data de vencimento:</Text>
               <Input
                 value={formatDate(validUntil) || ""}
                 editable={false}

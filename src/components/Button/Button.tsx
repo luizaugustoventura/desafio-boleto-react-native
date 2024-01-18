@@ -23,7 +23,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       }}
       disabled={!enabled}
       activeOpacity={0.8}
-      className={`flex-row items-center justify-center h-12 p-2.5 rounded-lg ${
+      className={`h-14 p-2 flex-row items-center justify-center rounded-lg overflow-hidden ${
         enabled ? "bg-zinc-800" : "bg-zinc-500"
       }`}
       style={style}
