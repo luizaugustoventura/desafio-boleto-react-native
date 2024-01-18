@@ -14,8 +14,25 @@ module.exports = {
   },
   artifacts: {
     plugins: {
-      log: process.env.CI ? "failing" : undefined,
-      screenshot: "failing",
+      instruments: "all",
+      log: "all",
+      uiHierarchy: "enabled",
+      screenshot: {
+        shouldTakeAutomaticSnapshots: true,
+        keepOnlyFailedTestsArtifacts: true,
+        takeWhen: {
+          testStart: false,
+          testDone: true,
+        },
+      },
+      video: {
+        android: {
+          bitRate: 4000000,
+        },
+        simulator: {
+          codec: "hevc",
+        },
+      },
     },
   },
   apps: {
@@ -93,3 +110,4 @@ module.exports = {
     },
   },
 };
+
