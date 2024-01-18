@@ -31,3 +31,7 @@ O aplicativo permite com que o usuário leia um código de barras com a câmera 
 3. Abra o aplicativo **Expo Go** no seu dispositivo e pressione o botão **"Scan QR Code"**
 4. Aponte a câmera do seu dispositivo físico para o QR Code exibido no terminal do Expo na sua máquina
 5. Aguarde o carregamento do bundle para que o aplicativo inicie
+
+## Testes unitários
+
+Para executar os testes unitários, digite `npm run test` no terminal na pasta do projeto
