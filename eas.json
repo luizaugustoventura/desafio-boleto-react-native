@@ -1,0 +1,34 @@
+{
+  "cli": {
+    "version": ">= 6.0.0"
+  },
+  "build": {
+    "test": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease :app:assembleAndroidTest -DtestBuildType=release",
+        "withoutCredentials": true
+      },
+      "ios": {
+        "simulator": true
+      },
+      "buildArtifactPaths": ["artifacts/**/*.png"]
+    },
+    "development": {
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      },
+      "buildArtifactPaths": ["artifacts/**/*.png"]
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}

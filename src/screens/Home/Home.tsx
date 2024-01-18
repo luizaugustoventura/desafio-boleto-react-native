@@ -122,6 +122,7 @@ const Home = () => {
               setCode(value);
             }}
             className="flex-1"
+            testID="code-input"
           />
 
           <View className="w-2" />
@@ -134,7 +135,11 @@ const Home = () => {
           </Button>
         </View>
 
-        <Button onPress={handleProcessBarCode} className="w-full">
+        <Button
+          onPress={handleProcessBarCode}
+          className="w-full"
+          testID="process-button"
+        >
           <Text className="text-base font-medium text-center text-white">
             AVANÇAR
           </Text>
@@ -167,6 +172,7 @@ const Home = () => {
             onPress={handlePayment}
             enabled={isPaymentCodeValid(code) && isCodeProcessed}
             className="w-full"
+            testID="payment-button"
           >
             <Text className="text-base font-medium text-center text-white">
               {"PAGAR "}
@@ -181,4 +187,3 @@ const Home = () => {
 };
 
 export default Home;
-

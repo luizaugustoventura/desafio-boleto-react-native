@@ -6,6 +6,7 @@ type ButtonProps = {
   onPress: () => void;
   enabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 };
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
@@ -13,6 +14,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   enabled = true,
   children,
   style,
+  testID,
 }) => {
   // console.log(customClassName);
   return (
@@ -27,6 +29,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
         enabled ? "bg-zinc-800" : "bg-zinc-500"
       }`}
       style={style}
+      testID={testID}
     >
       {children}
     </TouchableOpacity>
@@ -38,4 +41,3 @@ export default styled(Button, {
     style: true,
   },
 });
-

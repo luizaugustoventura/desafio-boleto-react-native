@@ -8,6 +8,7 @@ type InputProps = {
   onChangeText?: (value: string) => void;
   editable?: boolean;
   style?: StyleProp<TextStyle>;
+  testID?: string;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -16,6 +17,7 @@ const Input: React.FC<InputProps> = ({
   onChangeText,
   editable = true,
   style,
+  testID,
 }) => {
   return (
     <TextInput
@@ -25,6 +27,7 @@ const Input: React.FC<InputProps> = ({
       editable={editable}
       className="h-14 px-3 text-base border border-black rounded-xl"
       style={style}
+      testID={testID}
     />
   );
 };
@@ -34,4 +37,3 @@ export default styled(Input, {
     style: true,
   },
 });
-
