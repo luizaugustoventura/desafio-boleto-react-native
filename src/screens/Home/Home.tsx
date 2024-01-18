@@ -80,17 +80,21 @@ const Home = () => {
   const handlePayment = () => {
     if (validUntil) {
       const maxValidDate = validUntil;
-      maxValidDate.setUTCHours(23, 59, 59, 999);
+      const maxValidDateDelta = new Date(
+        maxValidDate.getFullYear(),
+        maxValidDate.getMonth(),
+        maxValidDate.getDate() + 1
+      );
+      maxValidDateDelta.setUTCHours(0, 0, 0, 0);
 
       const now = new Date();
-      now.setUTCHours(
-        now.getHours(),
-        now.getMinutes(),
-        now.getSeconds(),
-        now.getMilliseconds()
+      const nowDelta = new Date(
+        `${now.getFullYear()}-${
+          now.getMonth() + 1
+        }-${now.getDate()}T00:00:00.000Z`
       );
 
-      if (now < maxValidDate) {
+      if (nowDelta <= maxValidDateDelta) {
         Alert.alert("Pagamento aceito", "Seu pagamento foi aceito com sucesso");
       } else {
         Alert.alert("Pagamento negado", "O boleto é inválido ou expirou");
@@ -177,4 +181,3 @@ const Home = () => {
 };
 
 export default Home;
-
