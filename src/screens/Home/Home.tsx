@@ -13,7 +13,7 @@ import {
   formatDate,
   formatTotalValue,
   isPaymentCodeValid,
-} from "./utils";
+} from "./utils/utils";
 import styles from "./styles";
 import { InvalidPaymentCodeError } from "../../errors/InvalidPaymentCode.error";
 import { CameraPermissionError } from "../../errors/CameraPermissionError.error";
@@ -181,3 +181,4 @@ const Home = () => {
 };
 
 export default Home;
+
