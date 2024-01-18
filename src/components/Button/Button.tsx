@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { Keyboard, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
-import styles from "./styles";
+import { styled } from "nativewind";
 
 type ButtonProps = {
   onPress: () => void;
@@ -14,6 +14,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   children,
   style,
 }) => {
+  // console.log(customClassName);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -22,15 +23,19 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       }}
       disabled={!enabled}
       activeOpacity={0.8}
-      style={[
-        styles.button,
-        { backgroundColor: enabled ? "#333" : "#ccc" },
-        style,
-      ]}
+      className={`flex-row items-center justify-center h-12 p-2.5 rounded-lg ${
+        enabled ? "bg-zinc-800" : "bg-zinc-500"
+      }`}
+      style={style}
     >
       {children}
     </TouchableOpacity>
   );
 };
 
-export default Button;
+export default styled(Button, {
+  props: {
+    style: true,
+  },
+});
+
