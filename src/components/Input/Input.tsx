@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, TextInput, TextStyle } from "react-native";
-import styles from "./styles";
+import { styled } from "nativewind";
 
 type InputProps = {
   placeholder?: string;
@@ -8,6 +8,7 @@ type InputProps = {
   onChangeText?: (value: string) => void;
   editable?: boolean;
   style?: StyleProp<TextStyle>;
+  testID?: string;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -16,6 +17,7 @@ const Input: React.FC<InputProps> = ({
   onChangeText,
   editable = true,
   style,
+  testID,
 }) => {
   return (
     <TextInput
@@ -23,10 +25,15 @@ const Input: React.FC<InputProps> = ({
       value={value}
       onChangeText={onChangeText}
       editable={editable}
-      style={[styles.input, style]}
+      className="h-14 px-3 text-base border border-black rounded-xl"
+      style={style}
+      testID={testID}
     />
   );
 };
 
-export default Input;
-
+export default styled(Input, {
+  props: {
+    style: true,
+  },
+});

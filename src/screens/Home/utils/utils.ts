@@ -1,4 +1,4 @@
-import { InvalidPaymentCodeError } from "../../errors/InvalidPaymentCode.error";
+import { InvalidPaymentCodeError } from "../../../errors/InvalidPaymentCode.error";
 
 export const formatTotalValue = (value: number) => {
   const formattedValue = value.toLocaleString("pt-BR", {

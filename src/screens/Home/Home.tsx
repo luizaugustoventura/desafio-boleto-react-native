@@ -13,7 +13,7 @@ import {
   formatDate,
   formatTotalValue,
   isPaymentCodeValid,
-} from "./utils";
+} from "./utils/utils";
 import styles from "./styles";
 import { InvalidPaymentCodeError } from "../../errors/InvalidPaymentCode.error";
 import { CameraPermissionError } from "../../errors/CameraPermissionError.error";
@@ -103,14 +103,17 @@ const Home = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 z-0">
       <BarCodeScanner
         isVisible={isScanning}
         onBarCodeScanned={hasScanned ? undefined : onBarCodeScanned}
       />
 
-      <View style={styles.formContainer}>
-        <View style={styles.codeContainer}>
+      <View
+        className="flex-1 w-full max-w-sm p-2 self-center items-center"
+        style={styles.formContainer}
+      >
+        <View className="w-full mt-6 mb-6 flex-row justify-between">
           <Input
             placeholder="Código de barras..."
             value={code}
@@ -118,37 +121,49 @@ const Home = () => {
               isCodeProcessed && setIsCodeProcessed(false);
               setCode(value);
             }}
-            style={styles.codeInput}
+            className="flex-1"
+            testID="code-input"
           />
 
-          <Button onPress={handleScanBarCode} style={styles.cameraButton}>
+          <View className="w-2" />
+
+          <Button
+            onPress={handleScanBarCode}
+            className="h-14 w-14 rounded-full"
+          >
             <Icon name="camera" size={20} color={"white"} />
           </Button>
         </View>
 
-        <Button onPress={handleProcessBarCode} style={styles.button}>
-          <Text style={styles.buttonText}>AVANÇAR</Text>
+        <Button
+          onPress={handleProcessBarCode}
+          className="w-full"
+          testID="process-button"
+        >
+          <Text className="text-base font-medium text-center text-white">
+            AVANÇAR
+          </Text>
 
           <Icon name="chevron-right" size={20} color={"white"} />
         </Button>
 
-        <View style={styles.paymentDetailsContainer}>
+        <View className="flex-1 w-full mt-6 mb-4 justify-between">
           <View>
-            <View style={styles.detailContainer}>
-              <Text>Valor a pagar:</Text>
+            <View className="mb-3 px-3 py-2 flex-row items-center justify-between bg-gray-200 rounded-xl">
+              <Text className="text-sm">Valor a pagar:</Text>
               <Input
                 value={formatTotalValue(totalValue) || ""}
                 editable={false}
-                style={styles.detailInput}
+                className="text-black"
               />
             </View>
 
-            <View style={styles.detailContainer}>
-              <Text>Data de vencimento:</Text>
+            <View className="mb-3 px-3 py-2 flex-row items-center justify-between bg-gray-200 rounded-xl">
+              <Text className="text-sm">Data de vencimento:</Text>
               <Input
                 value={formatDate(validUntil) || ""}
                 editable={false}
-                style={styles.detailInput}
+                className="text-black"
               />
             </View>
           </View>
@@ -156,9 +171,12 @@ const Home = () => {
           <Button
             onPress={handlePayment}
             enabled={isPaymentCodeValid(code) && isCodeProcessed}
-            style={styles.button}
+            className="w-full"
+            testID="payment-button"
           >
-            <Text style={styles.buttonText}>{"PAGAR "}</Text>
+            <Text className="text-base font-medium text-center text-white">
+              {"PAGAR "}
+            </Text>
 
             <Icon name="dollar-sign" size={16} color={"white"} />
           </Button>
