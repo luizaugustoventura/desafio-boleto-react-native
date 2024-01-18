@@ -14,25 +14,7 @@ module.exports = {
   },
   artifacts: {
     plugins: {
-      instruments: "all",
-      log: "all",
-      uiHierarchy: "enabled",
-      screenshot: {
-        shouldTakeAutomaticSnapshots: true,
-        keepOnlyFailedTestsArtifacts: true,
-        takeWhen: {
-          testStart: false,
-          testDone: true,
-        },
-      },
-      video: {
-        android: {
-          bitRate: 4000000,
-        },
-        simulator: {
-          codec: "hevc",
-        },
-      },
+      video: "all",
     },
   },
   apps: {
